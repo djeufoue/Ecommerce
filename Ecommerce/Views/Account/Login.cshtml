@@ -1,0 +1,127 @@
+﻿@using Ecommerce.ViewModels;
+@model LoginViewModel;
+@{
+}
+
+<style>
+
+    .btn--full {
+        background-color: black;
+        color: white;
+    }
+
+    .wrapper, .charge_rabbit, .sky-pilot {
+        *zoom: 1;
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+
+    *, input, :before, :after {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    user agent stylesheet
+    div {
+        display: block;
+    }
+
+    body, input, textarea, button, select {
+        font-size: 14px;
+        line-height: 1.6;
+        font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+        color: black;
+        font-weight: normal;
+        -webkit-font-smoothing: antialiased;
+        -webkit-text-size-adjust: 100%;
+    }
+
+    *, input, :before, :after {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .wrapper:after, .charge_rabbit:after, .sky-pilot:after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+
+    *, input, :before, :after {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+</style>
+
+<div class="wrapper">
+
+    <div class="grid page-margin">
+
+        <div class="grid__item large--one-third push--large--one-third text-center">
+
+
+            <div class="note form-success" id="ResetSuccess" style="display:none;">
+                We've sent you an email with a link to update your password.
+            </div>
+
+            <div id="CustomerLoginForm">
+                <form method="post" action="/account/login" id="customer_login" accept-charset="UTF-8">
+                    <input type="hidden" name="form_type" value="customer_login"><input type="hidden" name="utf8" value="✓">
+
+                    <h3>Login</h3>
+
+
+
+
+                    <p>
+                        @Html.TextBoxFor(m => m.Email, new { @placeholder = "Email" }) @* Use Model binding *@
+                    </p>
+
+                    <p>
+                        @Html.TextBoxFor(m => m.Password, new { @placeholder = "Password" })
+                    </p>
+
+
+                    <p>
+                        <input type="submit" class="btn btn--full" value="Sign In">
+                    </p>
+                    <p>
+                        <a href="https://localhost:44328/">Return to Store</a>
+                        <span>•</span>
+                        <a href="#recover" id="RecoverPassword">Forgot your password?</a>
+                    </p>
+                </form>
+            </div>
+
+
+            <div id="RecoverPasswordForm" style="display: none;">
+
+                <h3>Reset your password</h3>
+                <p>We will send you an email to reset your password.</p>
+
+                <form method="post" action="/account/recover" accept-charset="UTF-8">
+                    <input type="hidden" name="form_type" value="recover_customer_password"><input type="hidden" name="utf8" value="✓">
+
+
+                    <label for="RecoverEmail" class="label--hidden">Email</label>
+                    <input type="email" value="" name="email" id="RecoverEmail" placeholder="Email" autocorrect="off" autocapitalize="off">
+
+                    <p>
+                        <input type="submit" class="btn btn--full" value="Submit">
+                    </p>
+                    <button type="button" id="HideRecoverPasswordLink" class="text-link">Cancel</button>
+                </form>
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+</div>

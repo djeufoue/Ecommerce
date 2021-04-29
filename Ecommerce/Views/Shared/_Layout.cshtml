@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Ecommerce</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    <style>
+
+
+        div.container {
+            height: 100%;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: auto;
+            width: 100%;
+            white-space: nowrap;
+            line-height: 100px;
+        }
+        
+    html {
+            height:100%;
+        }
+
+    body {
+        height: 100%; 
+        background-image: url("/img/wonderful-young-girls.jpg"); 
+
+    }
+
+        .info-bar {
+            background-color: black;
+            text-align-last: right;
+            padding-top: 1em;
+            padding-bottom: 0.5em;
+            padding-right: 3em;
+        }
+
+       
+
+        .container {
+            background-color:white;
+        }
+
+        .text-left > p {
+            font-family: arial;
+            color:white;
+        }
+
+        .text-left > p >a  {
+
+            color:white;
+        }
+
+        footer {
+            background-color:white
+        }
+
+
+        header-wrapper {
+
+            position:fixed;
+        }
+
+        info-bar {
+
+            position:fixed;
+        }
+ 
+    </style>
+
+</head>
+<body>
+    <div class="info-bar">
+        <div class="wrapper">
+            <div class="text-left">
+
+
+                <p class="site-header--text-links uppercase">
+
+                    <a href="/Account/login" id="customer_login_link">Log in</a>
+
+                    &nbsp; · &nbsp;
+                    <a href="/Account/register" id="customer_register_link">Create account</a>
+
+
+                </p>
+
+            </div>
+
+        </div>
+    </div>
+
+    <header class="header-wrapper">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+
+
+
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">OnlineCommerce</a>
+
+
+                <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button> -->
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2021 - Ecommerce - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+
+
+
+    <div class="grid__item large--one-third">
+        <h5>About</h5>
+        <hr class="hr--underline">
+        <div class="rte">
+            <meta charset="utf-8">
+            <p><strong>Hebe, bebe</strong></p>
+            <p><em>Curators of ethical fashion and New Zealand designed.</em>&nbsp;</p>
+            <p><span>Hebe is a destination for style seekers. Located in Masterton's boutique Kuripuni Village, Hebe is lovingly and carefully curated by Owner and Buyer, Dani Burkhart. Dedicated to NZ&nbsp;designed, ethical fashion&nbsp;and accessories- Hebe is a beautiful style edit.</span></p>
+            <p><span>Spliced on the rack, you will discover a mix of your favourite&nbsp;boutique&nbsp;labels, lounge-wear and lifestyle products. Hebe presents small, regular collections from designers that are limited in nature with a high rotation. For all women, all sizes, Hebe is the go-to fashion boutique of the Wairarapa. Purchases&nbsp;made at Hebe support suppliers and makers within NZ- shop&nbsp;local, shop small!</span></p>
+            <p><span>Feel inspired exploring&nbsp;a&nbsp;beautifully designed space that reflects a&nbsp;love for styling&nbsp;and creating. Style tips await from a small, warm team who adore fashion- the current, the classic and&nbsp;the refined.</span></p>
+            <p><span>A truly authentic element of the&nbsp;store, Owner Dani&nbsp;Burkhart, produces in-house clothing label My Boyfriends Back from Hebe, for Hebe. Shoppers&nbsp;can order different colours in&nbsp;signature styles, and select from seasonal pieces available instore. MBB is designed using&nbsp;surplus fabric stocks and is made in Auckland, NZ.</span>&nbsp;</p>
+        </div>
+    </div>
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

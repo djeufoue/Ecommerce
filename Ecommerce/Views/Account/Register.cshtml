@@ -1,0 +1,109 @@
+﻿@using Ecommerce.ViewModels;
+@model RegisterViewModel;
+@{
+}
+
+<style>
+
+    .btn--full {
+        background-color: black;
+        color: white;
+    }
+
+
+    .wrapper, .charge_rabbit, .sky-pilot {
+        *zoom: 1;
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+
+    *, input, :before, :after {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    user agent stylesheet
+    div {
+        display: block;
+    }
+
+    body, input, textarea, button, select {
+        font-size: 14px;
+        line-height: 1.6;
+        font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+        color: black;
+        font-weight: normal;
+        -webkit-font-smoothing: antialiased;
+        -webkit-text-size-adjust: 100%;
+    }
+
+    *, input, :before, :after {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .wrapper:after, .charge_rabbit:after, .sky-pilot:after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+
+    *, input, :before, :after {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+</style>
+
+<div class="wrapper">
+
+    <div class="grid page-margin">
+
+        <div class="grid__item large--one-third push--large--one-third text-center">
+
+            <h3>Create Account</h3>
+
+            <form method="post" action="/Account/Register" id="create_customer" accept-charset="UTF-8">
+                @*
+                    <input type="hidden" name="form_type" value="create_customer">
+                    <input type="hidden" name="utf8" value="✓">
+                *@
+
+                <p>
+                    <label for="FirstName" class="label--hidden">First Name</label>
+                    @Html.TextBoxFor(m => m.FirstName, new { @placeholder = "first name" }) @* Use Model binding *@
+                </p>
+
+                <p>
+                    <label for="LastName" class="label--hidden">Last Name</label>
+                    @Html.TextBoxFor(m => m.LastName, new { @placeholder = "last name" }) @* Use Model binding *@
+                </p>
+
+                <p>
+                    <label for="Email" class="label--hidden">Email</label>
+                    @Html.TextBoxFor(m => m.Email, new { @placeholder = "email" }) @* Use Model binding *@
+                </p>
+
+                <p>
+                    <label for="CreatePassword" class="label--hidden">Password</label>
+                    @Html.TextBoxFor(m => m.Password, new { @placeholder = "password", @password = "password" }) @* Use Model binding *@
+                </p>
+
+                <p>
+                    <input type="submit" value="Create" class="btn btn--full">
+                </p>
+
+                <a href="https://localhost:44328/">Return to Store</a>
+                <span>•</span>
+                <a href="/account/login" id="customer_login_link">Log in</a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

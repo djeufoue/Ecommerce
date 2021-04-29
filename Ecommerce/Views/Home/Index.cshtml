@@ -1,0 +1,34 @@
+﻿@model List<Product>;
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<style>
+    .product {
+        border: solid 1px blue;
+        padding: 10px;
+        margin: 10px;
+    }
+</style>
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<div>
+    @foreach (var product in Model)
+    {
+    <div class="product">
+
+        <p><a href="/Product/Products?id=@product.Id"><img src="@product.ImageURL" alt="" /></a></p>       
+        <h2>@product.Title</h2>
+
+        <p>@product.Price FCFA</p>
+
+        <p>@product.Description</p>
+
+
+    </div>
+    }
+</div>
