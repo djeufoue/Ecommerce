@@ -79,16 +79,27 @@
         <div class="wrapper">
             <div class="text-left">
 
+                @if (string.IsNullOrEmpty(User.Identity.Name))
+                {
+                    <p class="site-header--text-links uppercase">
 
-                <p class="site-header--text-links uppercase">
+                        <a href="/Account/login" id="customer_login_link">Log in</a>
 
-                    <a href="/Account/login" id="customer_login_link">Log in</a>
+                        &nbsp; · &nbsp;
+                        <a href="/Account/register" id="customer_register_link">Create account</a>
+                    </p>
+                }
+                else
+                {
+                    <p>
+                        <a href="/Product/AddProduct" id="customer_login_link">Add Product</a>
+                      
+                    </p>
 
-                    &nbsp; · &nbsp;
-                    <a href="/Account/register" id="customer_register_link">Create account</a>
-
-
-                </p>
+                    <p>
+                        <a href="Account/Logout" id="customer_login_link">Log Out</a>
+                    </p>
+                }
 
             </div>
 
@@ -130,27 +141,11 @@
     </div>
 
     <footer class="border-top footer text-muted">
+     
         <div class="container">
             &copy; 2021 - Ecommerce - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-
-
-
-    <div class="grid__item large--one-third">
-        <h5>About</h5>
-        <hr class="hr--underline">
-        <div class="rte">
-            <meta charset="utf-8">
-            <p><strong>Hebe, bebe</strong></p>
-            <p><em>Curators of ethical fashion and New Zealand designed.</em>&nbsp;</p>
-            <p><span>Hebe is a destination for style seekers. Located in Masterton's boutique Kuripuni Village, Hebe is lovingly and carefully curated by Owner and Buyer, Dani Burkhart. Dedicated to NZ&nbsp;designed, ethical fashion&nbsp;and accessories- Hebe is a beautiful style edit.</span></p>
-            <p><span>Spliced on the rack, you will discover a mix of your favourite&nbsp;boutique&nbsp;labels, lounge-wear and lifestyle products. Hebe presents small, regular collections from designers that are limited in nature with a high rotation. For all women, all sizes, Hebe is the go-to fashion boutique of the Wairarapa. Purchases&nbsp;made at Hebe support suppliers and makers within NZ- shop&nbsp;local, shop small!</span></p>
-            <p><span>Feel inspired exploring&nbsp;a&nbsp;beautifully designed space that reflects a&nbsp;love for styling&nbsp;and creating. Style tips await from a small, warm team who adore fashion- the current, the classic and&nbsp;the refined.</span></p>
-            <p><span>A truly authentic element of the&nbsp;store, Owner Dani&nbsp;Burkhart, produces in-house clothing label My Boyfriends Back from Hebe, for Hebe. Shoppers&nbsp;can order different colours in&nbsp;signature styles, and select from seasonal pieces available instore. MBB is designed using&nbsp;surplus fabric stocks and is made in Auckland, NZ.</span>&nbsp;</p>
-        </div>
-    </div>
-
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

@@ -1,4 +1,5 @@
-﻿using Ecommerce.ViewModels;
+﻿
+using Ecommerce.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -41,5 +42,10 @@ namespace Ecommerce.Controllers
             return LocalRedirect("/");
         }
 
+
+        public IActionResult Logout()
+        {
+            return LocalRedirect("/");
+        }
     }
 }

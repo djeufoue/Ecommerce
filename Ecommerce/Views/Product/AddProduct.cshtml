@@ -1,0 +1,24 @@
+﻿
+@using Ecommerce.ViewModels;
+@model ProductViewModel;
+@{
+}
+
+
+<h2>@Model.Title</h2>
+
+<p>
+    @Html.TextBoxFor(m => m.Title, new { @placeholder = "Enter the product name here" })
+</p>
+
+<p>
+    @Html.TextBoxFor(m => m.Price, new { @placeholder = "Enter the price product" })
+</p>
+
+<p>
+    @Html.TextBoxFor(m => m.Description, new { @placeholder = "Descripe your product here" })
+</p>
+
+<p>
+    <input type="submit" value="Create" class="btn btn--full">
+</p>
