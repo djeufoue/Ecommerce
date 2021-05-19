@@ -1,5 +1,6 @@
 ﻿using Ecommerce.Models;
 using Ecommerce.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,6 @@ namespace Ecommerce.Controllers
 
             _context = context;
         }
-
 
         [HttpGet]
         public IActionResult ViewProduct(long id)
@@ -37,15 +37,15 @@ namespace Ecommerce.Controllers
             return View(ViewModel);
         }
 
-
+        [Authorize]
         [HttpGet]
         public IActionResult AddProduct()
         {
-
             var ViewModel = new ProductViewModel();
             return View(ViewModel);
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult AddProduct(ProductViewModel model)
         {
@@ -57,7 +57,6 @@ namespace Ecommerce.Controllers
             product.CreatedAt = model.CreatedAt;
             product.publishedAt = model.publishedAt;
 
-
             // add product to database (does not save database)
             _context.Products.Add(product);
 
@@ -66,6 +65,5 @@ namespace Ecommerce.Controllers
 
             return LocalRedirect("/");
         }
-
     }
 }

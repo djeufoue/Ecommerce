@@ -1,17 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Ecommerce.ViewModels
 {
- 
-    
     public class LoginViewModel
     {
-
+        [Required]
+        [EmailAddress]
         public string Email { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        [StringLength(100, MinimumLength = 6)]
         public string Password { get; set; }
 
+        public bool RememberMe { get; set; }
     }
 }
