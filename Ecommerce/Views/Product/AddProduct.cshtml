@@ -1,24 +1,47 @@
 ﻿
 @using Ecommerce.ViewModels;
 @model ProductViewModel;
-@{
+@{        ViewData["Title"] = "Create a new product";
 }
 
 
-<h2>@Model.Title</h2>
+@using (Html.BeginForm("AddProduct", "Product", FormMethod.Post))
+{
 
-<p>
-    @Html.TextBoxFor(m => m.Title, new { @placeholder = "Enter the product name here" })
-</p>
+<div>
+    <div> @Html.TextBoxFor(m => m.Title, new { @class = "form-control", @placeholder = "Product name" })</div>
+    <div>@Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })</div>
+</div>
 
-<p>
-    @Html.TextBoxFor(m => m.Price, new { @placeholder = "Enter the price product" })
-</p>
 
-<p>
-    @Html.TextBoxFor(m => m.Description, new { @placeholder = "Descripe your product here" })
-</p>
+<div>
+    <div> @Html.TextBoxFor(m => m.Price, new { @class = "form-control", @placeholder = "Product price in franc CFA" })</div>
+    <div>@Html.ValidationMessageFor(m => m.Price, "", new { @class = "text-danger" })</div>
+</div>
+
+
+<div>
+    <div> @Html.TextBoxFor(m => m.Description, new { @class = "form-control", @placeholder = "Product Description" })</div>
+    <div>@Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })</div>
+</div>  
+
+<div>
+    <div> @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control", @placeholder = "Amount of product" })</div>
+    <div>@Html.ValidationMessageFor(m => m.Quantity, "", new { @class = "text-danger" })</div>
+</div>
+
+
+<div>
+    <div> @Html.TextBoxFor(m => m.publishedAt, new { @class = "form-control", @placeholder = "product release date" })</div>
+    <div>@Html.ValidationMessageFor(m => m.publishedAt, "", new { @class = "text-danger" })</div>
+</div>
+
+<div>
+    <div> @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", @placeholder = "WhatSapp number" })</div>
+    <div>@Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger" })</div>
+</div>
 
 <p>
     <input type="submit" value="Create" class="btn btn--full">
 </p>
+}

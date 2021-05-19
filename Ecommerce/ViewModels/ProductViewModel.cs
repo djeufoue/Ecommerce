@@ -15,7 +15,7 @@ namespace Ecommerce.ViewModels
         [StringLength(30)]
         public string Title { get; set; }
 
-        [StringLength(30)]
+        [StringLength(5000)]
         public String Description { get; set; }
 
         public int Price { get; set; }
@@ -27,6 +27,8 @@ namespace Ecommerce.ViewModels
         public DateTime publishedAt { get; set; }
 
         public string ImageURL { get; set; }
+
+        public int Phone { get; set; }
 
     }
 }
