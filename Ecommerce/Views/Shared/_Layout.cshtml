@@ -6,6 +6,9 @@
     <title>@ViewData["Title"] - Ecommerce</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <i class="fas fa-search"></i>
+    <script src="https://kit.fontawesome.com/4cc0f1f1db.js" crossorigin="anonymous"></script>
+
 
     <style>
 
@@ -21,9 +24,9 @@
             white-space: nowrap;
             line-height: 100px;
         }
-        
-    html {
-            height:100%;
+
+        html {
+            height: 100%;
         }
 
         body {
@@ -42,37 +45,33 @@
             padding-right: 3em;
         }
 
-       
+
 
         .container {
-            background-color:white;
+            background-color: white;
         }
 
         .text-left > p {
             font-family: arial;
-            color:white;
+            color: white;
         }
 
-        .text-left > p >a  {
-
-            color:white;
-        }
+            .text-left > p > a {
+                color: white;
+            }
 
         footer {
-            background-color:white
+            background-color: white
         }
 
 
         header-wrapper {
-
-            position:fixed;
+            position: fixed;
         }
 
         info-bar {
-
-            position:fixed;
+            position: fixed;
         }
- 
     </style>
 
 </head>
@@ -95,14 +94,13 @@
                 {
                     <p>
                         <a href="/Product/AddProduct" id="customer_login_link">Add Product</a>
-                      
+
                     </p>
 
                     <p>
                         <a href="Account/Logout" id="customer_login_link">Log Out</a>
                     </p>
                 }
-
 
 
 
@@ -121,9 +119,9 @@
 
 
                 <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button> -->
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button> -->
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
@@ -135,6 +133,14 @@
                     </ul>
                 </div>
             </div>
+
+            <div class="search-box">
+                <input class="search-txt" ="text" name="" placeholder="Type search...">
+                <a class="search-btn" href="#">
+                    <i class="fas fa-search"></i>
+                </a>
+            </div>
+        
         </nav>
 
     </header>
@@ -146,7 +152,7 @@
     </div>
 
     <footer class="border-top footer text-muted">
-     
+
         <div class="container">
             &copy; 2021 - Ecommerce - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
@@ -158,3 +164,53 @@
     @RenderSection("Scripts", required: false)
 </body>
 </html>
+
+<style type="text/css">
+
+
+    .search-box {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #2f3640;
+        height: 40px;
+        border-radius: 50px;
+        padding: 6px;
+    }
+
+        .search-box:hover > .search-txt {
+            width: 240px;
+            padding: 0 6px;
+        }
+
+        .search-box:hover > .search-btn {
+            background: white
+        }
+
+    .search-btn {
+        color: #FF0000;
+        float: left;
+        width: 40px;
+        height: 30px;
+        border-radius: 50px;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        transition: 0.4s;
+     
+    }
+
+    .search-txt {
+        border: none;
+        background: none;
+        outline: none;
+        float: left;
+        padding: 0;
+        color: white;
+        font-size: 16px;
+        transition: 0.4s;
+        line-height: 30px;
+        width: 0px;
+    }
+</style>
