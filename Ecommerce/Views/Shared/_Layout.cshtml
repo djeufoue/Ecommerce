@@ -31,7 +31,7 @@
 
         body {
             height: 100%;
-            background-image: url("/img/2190970.jpg");
+            background-image: url("/img/2190970.jpg")
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
@@ -49,6 +49,7 @@
 
         .container {
             background-color: white;
+            padding-bottom: 20px;
         }
 
         .text-left > p {
@@ -62,6 +63,8 @@
 
         footer {
             background-color: white
+        
+         
         }
 
 
@@ -72,96 +75,155 @@
         info-bar {
             position: fixed;
         }
+        .main_div{
+            position:fixed;
+            width:100%;
+    
+        }
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box
+        }
+        .box{
+            float:left
+                text-align: center;
+            background-color:#ff6a00;
+            color:#ffffff
+            width:125px;
+            line-height:125px;
+            text-align:center;
+            margin:10px;
+            display:none;
+
+        }
+        .show{
+            display:block;
+        }
+        .btn{
+            border: none
+            outline: none:
+
+        }
+        .btn:hover{
+            background-color:white;
+        }
     </style>
 
 </head>
 <body>
-    <div class="info-bar">
-        <div class="wrapper">
-            <div class="text-left">
+    <div class="main_div">
+        <div class="info-bar">
+            <div class="wrapper">
+                <div class="text-left">
 
-                @if (string.IsNullOrEmpty(User.Identity.Name))
-                {
-                    <p class="site-header--text-links uppercase">
+                    @if (string.IsNullOrEmpty(User.Identity.Name))
+                    {
+                        <p class="site-header--text-links uppercase">
 
-                        <a href="/Account/login" id="customer_login_link">Log in</a>
+                            <a href="/Account/login" id="customer_login_link">Log in</a>
 
-                        &nbsp; · &nbsp;
-                        <a href="/Account/register" id="customer_register_link">Create account</a>
-                    </p>
-                }
-                else
-                {
-                    <p>
-                        <a href="/Product/AddProduct" id="customer_login_link">Add Product</a>
+                            &nbsp; · &nbsp;
+                            <a href="/Account/register" id="customer_register_link">Create account</a>
+                        </p>
+                    }
+                    else
+                    {
+                        <p>
+                            <a href="/Product/AddProduct" id="customer_login_link">Add Product</a>
 
-                    </p>
+                        </p>
 
-                    <p>
-                        <a href="Account/Logout" id="customer_login_link">Log Out</a>
-                    </p>
-                }
+                        <p>
+                            <a href="Account/Logout" id="customer_login_link">Log Out</a>
+                        </p>
+                    }
 
 
+
+                </div>
 
             </div>
-
         </div>
-    </div>
 
-    <header class="header-wrapper">
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-
+        <header class="header-wrapper">
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
 
 
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">OnlineCommerce</a>
+
+                <div class="container">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">OnlineCommerce</a>
 
 
-                <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                 aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button> -->
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
 
-            <div class="search-box">
-                <input class="search-txt" ="text" name="" placeholder="Type search...">
-                <a class="search-btn" href="#">
-                    <i class="fas fa-search"></i>
-                </a>
-            </div>
-        
-        </nav>
+                <div class="search-box">
+                    <input class="search-txt" ="text" name="" placeholder="Type search...">
+                    <a class="search-btn" href="#">
+                        <i class="fas fa-search"></i>
+                    </a>
+                </div>
 
-    </header>
+            </nav>
+
+        </header>
+    </div>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
 
+
         </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-
-        <div class="container">
-            &copy; 2021 - Ecommerce - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        <div id="button">
+            <button class="btn">Show All</button>
+            <button class="btn">TV</button>
+            <button class="btn">Cars</button>
+            <button class="btn">Laptop</button>
+            <button class="btn">Phones</button>
+            <button class="btn">Colors</button>
         </div>
-    </footer>
+        <div class="Objects">
+            <div class="box">Starsat</div>
+            <div class="box">toyota</div>
+            <div class="box">Dell</div>
+            <div class="box">Hp</div>
+            <div class="box">Apple</div>
+            <div class="box">Xiaomi</div>
+            <div class="box">Green</div>
+            <div class="box">Orange</div>
+            <div class="box">LGtv</div>
+            <div class="box">Mercedes</div>
+        </div>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @RenderSection("Scripts", required: false)
+    </div>
+                 
+
+                    <footer class="border-top footer text-muted">
+
+                        <div class="container">
+                            &copy; 2021 - Ecommerce - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </div>
+                    </footer>
+
+                    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+                    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+                    <script src="~/js/site.js" asp-append-version="true"></script>
+                    @RenderSection("Scripts", required: false)
 </body>
 </html>
 
@@ -170,13 +232,15 @@
 
     .search-box {
         position: absolute;
-        top: 50%;
+       margin-top:3%;
         left: 50%;
         transform: translate(-50%, -50%);
         background: #2f3640;
         height: 40px;
         border-radius: 50px;
         padding: 6px;
+     
+      
     }
 
         .search-box:hover > .search-txt {
