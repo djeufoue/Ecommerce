@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Ecommerce.Models;
 using Ecommerce.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Ecommerce.Controllers
 {
+    [Authorize]
     public class ProductController : Controller
     {
         private readonly EcommerceDbContext _context;
@@ -24,6 +26,7 @@ namespace Ecommerce.Controllers
             ProductViewModel productViewModel = new ProductViewModel
             {
                 Id = product.Id,
+                UserId = product.UserId,
                 Title = product.Title,
                 Price = product.Price,
                 Quantity = product.Quantity,
@@ -40,6 +43,7 @@ namespace Ecommerce.Controllers
             Product product = new Product
             {
                 Id = p.Id,
+                UserId = p.UserId,
                 Title = p.Title,
                 Price = p.Price,
                 Quantity = p.Quantity,
@@ -64,6 +68,7 @@ namespace Ecommerce.Controllers
         }
 
         // GET: Product/Details/5
+        [AllowAnonymous]
         public IActionResult Details(long? id)
         {
             if (id == null)
@@ -98,6 +103,12 @@ namespace Ecommerce.Controllers
             if (ModelState.IsValid)
             {
                 Product product = GetModelFromViewModel(productViewModel);
+
+                ApplicationUser user = _context.Users
+                                            .Where(u => u.UserName == User.Identity.Name)
+                                            .First();
+                product.UserId = user.Id;
+
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -118,6 +129,12 @@ namespace Ecommerce.Controllers
             {
                 return NotFound();
             }
+
+            ApplicationUser user = _context.Users
+                                        .Where(u => u.UserName == User.Identity.Name)
+                                        .First();
+            if (product.UserId != user.Id)
+                return Forbid("Not a chance in hell!");
 
             var productViewModel = GetViewModelFromModel(product);
 
@@ -141,6 +158,13 @@ namespace Ecommerce.Controllers
                 try
                 {
                     Product product = GetModelFromViewModel(productViewModel);
+
+                    ApplicationUser user = _context.Users
+                                                .Where(u => u.UserName == User.Identity.Name)
+                                                .First();
+                    if (product.UserId != user.Id)
+                        return Forbid("Not a chance in hell!");
+
                     _context.Update(product);
                     await _context.SaveChangesAsync();
                 }
@@ -174,6 +198,12 @@ namespace Ecommerce.Controllers
                 return NotFound();
             }
 
+            ApplicationUser user = _context.Users
+                                        .Where(u => u.UserName == User.Identity.Name)
+                                        .First();
+            if (product.UserId != user.Id)
+                return Forbid("Not a chance in hell!");
+
             var productViewModel = GetViewModelFromModel(product);
 
             return View(productViewModel);
@@ -184,7 +214,14 @@ namespace Ecommerce.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            var product = await _context.Products.FindAsync(id);
+            Product product = await _context.Products.FindAsync(id);
+
+            ApplicationUser user = _context.Users
+                                        .Where(u => u.UserName == User.Identity.Name)
+                                        .First();
+            if (product.UserId != user.Id)
+                return Forbid("Not a chance in hell!");
+
             _context.Products.Remove(product);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
