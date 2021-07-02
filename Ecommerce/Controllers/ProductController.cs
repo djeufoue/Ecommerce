@@ -1,83 +1,153 @@
-﻿using Ecommerce.Models;
-using Ecommerce.ViewModels;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using Ecommerce.Models;
+using Ecommerce.ViewModels;
 
 namespace Ecommerce.Controllers
 {
     public class ProductController : Controller
     {
-        // _context here is how dartabase 
-        private EcommerceDbContext _context;
+        private readonly EcommerceDbContext _context;
 
-        // constructor 
         public ProductController(EcommerceDbContext context)
         {
-
             _context = context;
         }
 
-        [HttpGet]
-        public IActionResult ViewProduct(long id)
+        // GET: Product
+        public async Task<IActionResult> Index()
         {
-
-            //  
-            Product product = _context.Products
-                                    .Where(x => x.Id == id)
-                                    .FirstOrDefault();
-            // this is actualy the code that allow the image and the information about a product to be view when we clicked on a
-            // product in the main page. Allow us to get all the values from the database.
-
-            var ViewModel = new ProductViewModel();
-            ViewModel.Title = product.Title;
-            ViewModel.Description = product.Description;
-            ViewModel.Price = product.Price;
-            ViewModel.Quantity = product.Quantity;
-            ViewModel.CreatedAt = product.CreatedAt;
-            ViewModel.publishedAt = product.publishedAt;
-            ViewModel.ImageURL = product.ImageURL;
-
-            return View(ViewModel);
+            return View(await _context.ProductViewModel.ToListAsync());
         }
 
-        // this "[Authorize]" means that this page can only be access by those who have already login
-        [Authorize]
-        [HttpGet]
-        public IActionResult AddProduct()
+        // GET: Product/Details/5
+        public async Task<IActionResult> Details(long? id)
         {
-            var ViewModel = new ProductViewModel();
-            return View(ViewModel);
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var productViewModel = await _context.ProductViewModel
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (productViewModel == null)
+            {
+                return NotFound();
+            }
+
+            return View(productViewModel);
         }
 
-        [Authorize]
+        // GET: Product/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: Product/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public IActionResult AddProduct(ProductViewModel model)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Id,UserId,Title,Description,Price,Quantity,CreatedAt,publishedAt,ImageURL,Phone")] ProductViewModel productViewModel)
         {
-            Product product = new Product();
-            product.Title = model.Title;
-            product.Description = model.Description;
-            product.Price = model.Price;
-            product.Quantity = model.Quantity;
-            product.CreatedAt = model.CreatedAt;
-            product.publishedAt = model.publishedAt;
+            if (ModelState.IsValid)
+            {
+                _context.Add(productViewModel);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(productViewModel);
+        }
 
-            // User.Identity.Name is the UserName of the logged-in user
-            ApplicationUser user = _context.Users
-                .Where(u => u.UserName == User.Identity.Name)
-                .FirstOrDefault();
-            product.UserId = user.Id;
+        // GET: Product/Edit/5
+        public async Task<IActionResult> Edit(long? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-            // add product to database (does not save database)
-            _context.Products.Add(product);
+            var productViewModel = await _context.ProductViewModel.FindAsync(id);
+            if (productViewModel == null)
+            {
+                return NotFound();
+            }
+            return View(productViewModel);
+        }
 
-            // save database (will write all changes to the database)
-            _context.SaveChanges();
+        // POST: Product/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(long id, [Bind("Id,UserId,Title,Description,Price,Quantity,CreatedAt,publishedAt,ImageURL,Phone")] ProductViewModel productViewModel)
+        {
+            if (id != productViewModel.Id)
+            {
+                return NotFound();
+            }
 
-            return LocalRedirect("/");
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(productViewModel);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ProductViewModelExists(productViewModel.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(productViewModel);
+        }
+
+        // GET: Product/Delete/5
+        public async Task<IActionResult> Delete(long? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var productViewModel = await _context.ProductViewModel
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (productViewModel == null)
+            {
+                return NotFound();
+            }
+
+            return View(productViewModel);
+        }
+
+        // POST: Product/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(long id)
+        {
+            var productViewModel = await _context.ProductViewModel.FindAsync(id);
+            _context.ProductViewModel.Remove(productViewModel);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool ProductViewModelExists(long id)
+        {
+            return _context.ProductViewModel.Any(e => e.Id == id);
         }
     }
 }
