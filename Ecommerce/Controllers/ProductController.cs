@@ -25,6 +25,12 @@ namespace Ecommerce.Controllers
             {
                 Id = product.Id,
                 Title = product.Title,
+                Price = product.Price,
+                Quantity = product.Quantity,
+                CreatedAt = product.CreatedAt,
+                publishedAt = product.publishedAt,
+                Description = product.Description,
+                ImageURL = product.ImageURL,
             };
             return productViewModel;
         }
@@ -35,6 +41,12 @@ namespace Ecommerce.Controllers
             {
                 Id = p.Id,
                 Title = p.Title,
+                Price = p.Price,
+                Quantity = p.Quantity,
+                CreatedAt = p.CreatedAt,
+                publishedAt = p.publishedAt,
+                Description = p.Description,
+                ImageURL = p.ImageURL,
             };
             return product;
         }
