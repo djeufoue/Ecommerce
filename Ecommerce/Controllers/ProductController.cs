@@ -19,26 +19,53 @@ namespace Ecommerce.Controllers
             _context = context;
         }
 
+        private ProductViewModel GetViewModelFromModel(Product product)
+        {
+            ProductViewModel productViewModel = new ProductViewModel
+            {
+                Id = product.Id,
+                Title = product.Title,
+            };
+            return productViewModel;
+        }
+
+        private Product GetModelFromViewModel(ProductViewModel p)
+        {
+            Product product = new Product
+            {
+                Id = p.Id,
+                Title = p.Title,
+            };
+            return product;
+        }
+
         // GET: Product
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ProductViewModel.ToListAsync());
+            List<Product> products = await _context.Products.ToListAsync();
+            List<ProductViewModel> productViewModels = new List<ProductViewModel>();
+            foreach (Product product in products)
+            {
+                productViewModels.Add(GetViewModelFromModel(product));
+            }
+            return View(productViewModels);
         }
 
         // GET: Product/Details/5
-        public async Task<IActionResult> Details(long? id)
+        public IActionResult Details(long? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var productViewModel = await _context.ProductViewModel
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (productViewModel == null)
+            Product product = _context.Products.Find(id);
+            if (product == null)
             {
                 return NotFound();
             }
+
+            var productViewModel = GetViewModelFromModel(product);
 
             return View(productViewModel);
         }
@@ -58,7 +85,8 @@ namespace Ecommerce.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(productViewModel);
+                Product product = GetModelFromViewModel(productViewModel);
+                _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -66,18 +94,21 @@ namespace Ecommerce.Controllers
         }
 
         // GET: Product/Edit/5
-        public async Task<IActionResult> Edit(long? id)
+        public IActionResult Edit(long? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var productViewModel = await _context.ProductViewModel.FindAsync(id);
-            if (productViewModel == null)
+            Product product = _context.Products.Find(id);
+            if (product == null)
             {
                 return NotFound();
             }
+
+            var productViewModel = GetViewModelFromModel(product);
+
             return View(productViewModel);
         }
 
@@ -97,12 +128,13 @@ namespace Ecommerce.Controllers
             {
                 try
                 {
-                    _context.Update(productViewModel);
+                    Product product = GetModelFromViewModel(productViewModel);
+                    _context.Update(product);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductViewModelExists(productViewModel.Id))
+                    if (_context.Products.Find(id) == null)
                     {
                         return NotFound();
                     }
@@ -117,19 +149,20 @@ namespace Ecommerce.Controllers
         }
 
         // GET: Product/Delete/5
-        public async Task<IActionResult> Delete(long? id)
+        public IActionResult Delete(long? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var productViewModel = await _context.ProductViewModel
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (productViewModel == null)
+            Product product = _context.Products.Find(id);
+            if (product == null)
             {
                 return NotFound();
             }
+
+            var productViewModel = GetViewModelFromModel(product);
 
             return View(productViewModel);
         }
@@ -139,15 +172,10 @@ namespace Ecommerce.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            var productViewModel = await _context.ProductViewModel.FindAsync(id);
-            _context.ProductViewModel.Remove(productViewModel);
+            var product = await _context.Products.FindAsync(id);
+            _context.Products.Remove(product);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool ProductViewModelExists(long id)
-        {
-            return _context.ProductViewModel.Any(e => e.Id == id);
         }
     }
 }
