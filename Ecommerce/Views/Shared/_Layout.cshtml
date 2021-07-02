@@ -6,16 +6,10 @@
     <title>@ViewData["Title"] - Ecommerce</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <i class="fas fa-search"></i>
     <script src="https://kit.fontawesome.com/4cc0f1f1db.js" crossorigin="anonymous"></script>
 
 
     <style>
-
-
-        div.container {
-            height: auto;
-        }
 
         .footer {
             position: absolute;
@@ -75,10 +69,11 @@
         info-bar {
             position: fixed;
         }
-        .main_div{
-            position:fixed;
-            width:100%;
-    
+        .main_div {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100
         }
         *{
             margin:0;
@@ -122,7 +117,6 @@
                         <p class="site-header--text-links uppercase">
 
                             <a href="/Account/login" id="customer_login_link">Log in</a>
-
                             &nbsp; · &nbsp;
                             <a href="/Account/register" id="customer_register_link">Create account</a>
                         </p>
@@ -130,11 +124,8 @@
                     else
                     {
                         <p>
-                            <a href="/Product/AddProduct" id="customer_login_link">Add Product</a>
-
-                        </p>
-
-                        <p>
+                            <a href="/Product/Create" id="customer_login_link">Add Product</a>
+                            &nbsp; · &nbsp;
                             <a href="Account/Logout" id="customer_login_link">Log Out</a>
                         </p>
                     }
@@ -183,7 +174,7 @@
         </header>
     </div>
 
-    <div class="container">
+    <div class="container" style="margin-top: 160px;">
         <main role="main" class="pb-3">
             @RenderBody()
 
