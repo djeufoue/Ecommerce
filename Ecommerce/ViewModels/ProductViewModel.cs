@@ -31,6 +31,8 @@ namespace Ecommerce.ViewModels
 
         [Display(Name = "Product Image")]
         public IFormFile ImageFile { get; set; }
+
+        [Display(Name ="Image")]
         public string ImageURL { get; set; }
 
         public int Phone { get; set; }
