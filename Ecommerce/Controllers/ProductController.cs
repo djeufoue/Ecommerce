@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Net;
+using System.IO;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Ecommerce.Models;
 using Ecommerce.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Configuration;
+using MimeKit;
+using Microsoft.AspNetCore.Http;
 
 namespace Ecommerce.Controllers
 {
@@ -15,10 +19,12 @@ namespace Ecommerce.Controllers
     public class ProductController : Controller
     {
         private readonly EcommerceDbContext _context;
+        private readonly IConfiguration _configuration;
 
-        public ProductController(EcommerceDbContext context)
+        public ProductController(EcommerceDbContext context, IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
 
         private ProductViewModel GetViewModelFromModel(Product product)
@@ -89,6 +95,58 @@ namespace Ecommerce.Controllers
             return View(productViewModel);
         }
 
+        [AllowAnonymous]
+        public IActionResult GetFile(string fileName)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(fileName))
+                {
+                    string filePathName = _configuration.GetValue<string>("PathToProductsImages") + fileName;
+
+                    if (System.IO.File.Exists(filePathName))
+                    {
+                        var modificationDate = System.IO.File.GetLastWriteTimeUtc(filePathName);
+                        FileStream fileStream = System.IO.File.OpenRead(filePathName);
+                        string contentType = MimeTypes.GetMimeType(fileName);
+
+                        var contentDisposition = new System.Net.Mime.ContentDisposition
+                        {
+                            FileName = fileName,
+                            Inline = true,
+                            Size = fileStream.Length,
+                            ModificationDate = modificationDate
+                        };
+                        Response.Headers.Add("Content-Disposition", contentDisposition.ToString());
+
+                        return File(fileStream, contentType);
+                    }
+                    else return NotFound($"File '{fileName}' not found");
+                }
+                else return BadRequest("File name not provided");
+            }
+            catch (Exception e)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+
+        private async Task SaveImageFile(IFormFile formFile, Product product)
+        {
+            if (formFile != null)
+            {
+                string folder = _configuration.GetValue<string>("PathToProductsImages");
+                string dateTime = DateTime.UtcNow.ToString("yyyy-MM-dd HH-mm-ss");
+                string fileName = $"Product {dateTime} {formFile.FileName}";
+
+                using (FileStream fileStream = new FileStream(Path.Combine(folder, fileName), FileMode.Create, FileAccess.Write))
+                {
+                    await formFile.CopyToAsync(fileStream);
+                }
+                product.ImageURL = $"/Product/{nameof(GetFile)}?fileName={fileName}";
+            }
+        }
+
         // GET: Product/Create
         public IActionResult Create()
         {
@@ -100,7 +158,7 @@ namespace Ecommerce.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserId,Title,Description,Price,Quantity,CreatedAt,publishedAt,ImageURL,Phone")] ProductViewModel productViewModel)
+        public async Task<IActionResult> Create(ProductViewModel productViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -110,6 +168,8 @@ namespace Ecommerce.Controllers
                                             .Where(u => u.UserName == User.Identity.Name)
                                             .First();
                 product.UserId = user.Id;
+
+                await SaveImageFile(productViewModel.ImageFile, product);
 
                 _context.Add(product);
                 await _context.SaveChangesAsync();
@@ -148,7 +208,7 @@ namespace Ecommerce.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,UserId,Title,Description,Price,Quantity,CreatedAt,publishedAt,ImageURL,Phone")] ProductViewModel productViewModel)
+        public async Task<IActionResult> Edit(long id, ProductViewModel productViewModel)
         {
             if (id != productViewModel.Id)
             {
@@ -166,6 +226,8 @@ namespace Ecommerce.Controllers
                                                 .First();
                     if (product.UserId != user.Id)
                         return Forbid("Not a chance in hell!");
+
+                    await SaveImageFile(productViewModel.ImageFile, product);
 
                     _context.Update(product);
                     await _context.SaveChangesAsync();

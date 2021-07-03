@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Ecommerce.ViewModels
 {
@@ -11,6 +10,7 @@ namespace Ecommerce.ViewModels
     {
         public long Id { get; set; } // auto-incremented primary key
 
+        [HiddenInput(DisplayValue = false)]
         public long UserId { get; set; }
 
         [StringLength(30)]
