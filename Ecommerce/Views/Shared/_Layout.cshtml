@@ -28,7 +28,7 @@
                         <p>
                             <a href="/Product/Create" id="customer_login_link">Add Product</a>
                             &nbsp; · &nbsp;
-                            <a href="Account/Logout" id="customer_login_link">Log Out</a>
+                            <a href="/Account/Logout" id="customer_login_link">Log Out</a>
                         </p>
                     }
 
@@ -49,9 +49,9 @@
 
 
                     <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button> -->
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button> -->
                     <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                         <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
@@ -76,45 +76,38 @@
         </header>
     </div>
 
-    <div class="container" style="padding-top: 150px;">
+    <div class="container" style="padding-top: 150px; min-height: 90vh;">
         <main role="main" class="pb-3">
             @RenderBody()
-
-
         </main>
-        
-
     </div>
-                 
 
-                    <footer class="border-top footer text-muted">
 
-                        <div class="container">
-                            &copy; 2021 - Ecommerce - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </div>
-                    </footer>
+    <footer class="border-top footer text-muted">
 
-                    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-                    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-                    <script src="~/js/site.js" asp-append-version="true"></script>
-                    @RenderSection("Scripts", required: false)
+        <div class="container">
+            &copy; 2021 - Ecommerce - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
 </body>
 </html>
 
 <style type="text/css">
 
-
     .search-box {
         position: absolute;
-       margin-top:3%;
+        margin-top: 3%;
         left: 85%;
         transform: translate(-50%, -50%);
         background: #2f3640;
         height: 40px;
         border-radius: 50px;
         padding: 6px;
-
-        
     }
 
         .search-box:hover > .search-txt {
