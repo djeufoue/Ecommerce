@@ -58,14 +58,66 @@ html {
   min-height: 100%;
 }
 
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
-}
 .footer {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
   white-space: nowrap;
+  background-color: white;
   line-height: 60px; /* Vertically center the text there */
+}
+
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    background-image: url("/img/2190970.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.info-bar {
+    background-color: black;
+    text-align-last: right;
+    padding-top: 1em;
+    padding-bottom: 0.5em;
+    padding-right: 3em;
+}
+
+
+
+.container {
+    background-color: white;
+    padding-bottom: 20px;
+}
+
+.text-left > p {
+    font-family: arial;
+    color: white;
+}
+
+    .text-left > p > a {
+        color: white;
+    }
+
+header-wrapper {
+    position: fixed;
+}
+
+info-bar {
+    position: fixed;
+}
+
+.main_div {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box
 }
