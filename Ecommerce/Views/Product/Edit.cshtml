@@ -49,9 +49,9 @@
                 <span asp-validation-for="publishedAt" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ImageURL" class="control-label"></label>
-                <input asp-for="ImageURL" class="form-control" />
-                <span asp-validation-for="ImageURL" class="text-danger"></span>
+                <label asp-for="ImageFile" class="control-label"></label>
+                <input asp-for="ImageFile" type="file" accept="image/*">
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Phone" class="control-label"></label>
