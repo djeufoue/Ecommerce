@@ -30,5 +30,7 @@ namespace Ecommerce.Models
         public DateTime publishedAt { get; set; }
 
         public string ImageURL { get; set; }
+         
+        public int Phone { get; set; }
     }
 }

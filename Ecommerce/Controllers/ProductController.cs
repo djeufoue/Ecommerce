@@ -34,6 +34,7 @@ namespace Ecommerce.Controllers
                 publishedAt = product.publishedAt,
                 Description = product.Description,
                 ImageURL = product.ImageURL,
+                Phone = product.Phone,
             };
             return productViewModel;
         }
@@ -51,6 +52,7 @@ namespace Ecommerce.Controllers
                 publishedAt = p.publishedAt,
                 Description = p.Description,
                 ImageURL = p.ImageURL,
+                Phone=p.Phone,
             };
             return product;
         }
