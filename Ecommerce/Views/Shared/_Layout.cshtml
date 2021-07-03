@@ -6,16 +6,10 @@
     <title>@ViewData["Title"] - Ecommerce</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <i class="fas fa-search"></i>
     <script src="https://kit.fontawesome.com/4cc0f1f1db.js" crossorigin="anonymous"></script>
 
 
     <style>
-
-
-        div.container {
-            height: auto
-        }
 
         .footer {
             position: absolute;
@@ -75,42 +69,18 @@
         info-bar {
             position: fixed;
         }
-        .main_div{
-            position:fixed;
-            width:100%;
-            opacity: 0.7;
-            top: -1px;
-
-    
+        .main_div {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100
         }
         *{
             margin:0;
             padding:0;
             box-sizing:border-box
         }
-        .box{
-            float:left
-                text-align: center;
-            background-color:#ff6a00;
-            color:#ffffff
-            width:125px;
-            line-height:125px;
-            text-align:center;
-            margin:10px;
-            display:none;
-
-        }
-        .show{
-            display:block;
-        }
-        .btn{
-            border: none
-            outline: none:
-
-        }
-        .btn:hover{
-            background-color:white;
-        }
+        
     </style>
 
 </head>
@@ -125,7 +95,6 @@
                         <p class="site-header--text-links uppercase">
 
                             <a href="/Account/login" id="customer_login_link">Log in</a>
-
                             &nbsp; · &nbsp;
                             <a href="/Account/register" id="customer_register_link">Create account</a>
                         </p>
@@ -133,11 +102,8 @@
                     else
                     {
                         <p>
-                            <a href="/Product/AddProduct" id="customer_login_link">Add Product</a>
-
-                        </p>
-
-                        <p>
+                            <a href="/Product/Create" id="customer_login_link">Add Product</a>
+                            &nbsp; · &nbsp;
                             <a href="Account/Logout" id="customer_login_link">Log Out</a>
                         </p>
                     }
@@ -175,7 +141,7 @@
                 </div>
 
                 <div class="search-box">
-                    <input class="search-txt" ="text" name="" placeholder="Type search...">
+                    <input class="search-txt" type="text" name="" placeholder="Type search...">
                     <a class="search-btn" href="#">
                         <i class="fas fa-search"></i>
                     </a>
@@ -186,32 +152,13 @@
         </header>
     </div>
 
-    <div class="container">
+    <div class="container" style="padding-top: 150px;">
         <main role="main" class="pb-3">
             @RenderBody()
 
 
         </main>
-        <div id="button">
-            <button class="btn">Show All</button>
-            <button class="btn">TV</button>
-            <button class="btn">Cars</button>
-            <button class="btn">Laptop</button>
-            <button class="btn">Phones</button>
-            <button class="btn">Colors</button>
-        </div>
-        <div class="Objects">
-            <div class="box">Starsat</div>
-            <div class="box">toyota</div>
-            <div class="box">Dell</div>
-            <div class="box">Hp</div>
-            <div class="box">Apple</div>
-            <div class="box">Xiaomi</div>
-            <div class="box">Green</div>
-            <div class="box">Orange</div>
-            <div class="box">LGtv</div>
-            <div class="box">Mercedes</div>
-        </div>
+        
 
     </div>
                  
@@ -242,8 +189,8 @@
         height: 40px;
         border-radius: 50px;
         padding: 6px;
-     
-      
+
+        
     }
 
         .search-box:hover > .search-txt {

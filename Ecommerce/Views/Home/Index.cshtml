@@ -9,12 +9,13 @@
         padding: 10px;
         margin: 10px 30px 20px 30px;
         border-radius: 8px;
-        width: 500px;
+        width: 300px;
         
+ 
     }
 
-     p img {
-        width: 400px;
+    p img {
+        width: 270px;
     }
  
      
@@ -40,12 +41,12 @@
     <div class="product">
 
 
-        <p><a href="/Product/ViewProduct?id=@product.Id"><img src="@product.ImageURL" alt="" /></a></p>
-        <h2>@product.Title</h2>
+        <p><a href="/Product/Details?id=@product.Id"><img src="@product.ImageURL" alt="" /></a></p>
+        <a href="/Product/Details?id=@product.Id"><h2>@product.Title</h2></a>
 
-        <p>@product.Price FCFA</p>
+        <a href="/Product/Details?id=@product.Id"><p>@product.Price FCFA</p></a>
 
-        <p>@product.Description</p>
+        <a  href="/Product/Details?id=@product.Id"><p>@product.Description</p></a>
 
 
     </div>
