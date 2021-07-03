@@ -121,3 +121,12 @@ info-bar {
     padding: 0;
     box-sizing: border-box
 }
+
+label.control-label {
+    font-weight: bold;
+}
+
+.edit-product {
+    max-width: 500px;
+    margin: 0 auto;
+}
