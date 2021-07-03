@@ -6,16 +6,30 @@
 <style>
     .product {
         border: solid 1px blue;
-        padding: 10px;
         margin: 10px 30px 20px 30px;
         border-radius: 8px;
         width: 300px;
-        
- 
+        float: right;
+        background-color: white;
+        position: relative;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        padding-right: 8px;
+        height: 500px;
     }
 
     p img {
         width: 270px;
+    }
+    .container {
+    }
+
+
+    #cut_text {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        min-width: 0;
     }
  
      
@@ -33,22 +47,23 @@
 }
 
 
-<div>
+<div classe="container">
     @foreach (var product in Model)
     {
 
 
-    <div class="product">
 
 
-        <p><a href="/Product/Details?id=@product.Id"><img src="@product.ImageURL" alt="" /></a></p>
-        <a href="/Product/Details?id=@product.Id"><h2>@product.Title</h2></a>
-
-        <a href="/Product/Details?id=@product.Id"><p>@product.Price FCFA</p></a>
-
-        <a  href="/Product/Details?id=@product.Id"><p>@product.Description</p></a>
+<div class="product">
 
 
-    </div>
-    }
+    <p><a href="/Product/Details?id=@product.Id"><img src="@product.ImageURL" alt="" /></a></p>
+    <a href="/Product/Details?id=@product.Id"><h2>@product.Title</h2></a>
+
+    <a href="/Product/Details?id=@product.Id"><p>@product.Price FCFA</p></a>
+
+    <a id="cut_text" href="/Product/Details?id=@product.Id"><p>@product.Description</p></a>
+
+
+</div>}
 </div>
