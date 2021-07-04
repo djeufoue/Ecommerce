@@ -8,6 +8,10 @@
     form > * {
         margin: 1em auto;
     }
+
+    .search-box {
+        display: none;
+    }
 </style>
 
 @using (Html.BeginForm("Login", "Account", new { returnUrl = ViewData["ReturnUrl"] }, FormMethod.Post))
