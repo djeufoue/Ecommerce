@@ -5,24 +5,36 @@
 
 <style>
     .product {
-       
         margin: 20px 15px 20px 15px;
-        border-radius: 8px;
+        border-radius: 14px;
         width: 30%;
         float: right;
-        
         background-color: white;
         position: relative;
         height: 500px;
-        padding:10px;
-        overflow-y:hidden;
+        padding: 10px;
+        overflow-y: hidden;
+
+        cursor:pointer;
+        box-shadow: 0px 4px 6px -1px rgb(0 148 255);
+       
     }
 
-    p img {
-        width: 100%;
+    img {
+        width: 90%;
         height: 200px;
         object-fit: cover;
+        border-radius: 8px;
+        box-shadow: 0px 4px 6px -1px rgb(0 148 255);
+        background-size:cover;
+       transition: all 1s;
     }
+
+    .product:hover img {
+        transform: scale(1.2);
+    }
+
+   
 
     .main-heading {
         background-color:white;
@@ -56,18 +68,18 @@
 }
 
 
-<div  style="display: table;">
+<div  style="display: table; margin: 10px 10px 10px -8px;">
     @foreach (var product in Model)
     {
         <a href="/Product/Details?id=@product.Id" style="color: black; text-decoration: none;">
             <div class="product">
-                <p><img src="@product.ImageURL" alt="" /></p>
+                <img src="@product.ImageURL" alt="" />
 
                 <h2>@product.Title</h2>
 
                 <p>@product.Price FCFA</p>
 
-                <p>@product.Description.Substring(0, Math.Min(product.Description?.Length ?? 0, 200))</p>
+                <p style="text-align: justify;">@product.Description.Substring(0, Math.Min(product.Description?.Length ?? 0, 200))</p>
             </div>
         </a>
     }
