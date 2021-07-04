@@ -14,14 +14,13 @@
         height: 500px;
         padding: 10px;
         overflow-y: hidden;
-
-        cursor:pointer;
+        cursor: pointer;
         box-shadow: 0px 4px 6px -1px rgb(0 148 255);
-       
+        
     }
 
     img {
-        width: 90%;
+        width: 100%;
         height: 200px;
         object-fit: cover;
         border-radius: 8px;
@@ -30,8 +29,8 @@
        transition: all 1s;
     }
 
-    .product:hover img {
-        transform: scale(1.2);
+    .product:hover {
+        transform: scale(1.05);
     }
 
    
@@ -71,15 +70,15 @@
 <div  style="display: table; margin: 10px 10px 10px -8px;">
     @foreach (var product in Model)
     {
-        <a href="/Product/Details?id=@product.Id" style="color: black; text-decoration: none;">
+        <a href="/Product/Details?id=@product.Id" style="color: black; text-decoration: none; text-align:center; ">
             <div class="product">
                 <img src="@product.ImageURL" alt="" />
 
                 <h2>@product.Title</h2>
 
-                <p>@product.Price FCFA</p>
+                <p><b>@product.Price FCFA</b></p>
 
-                <p style="text-align: justify;">@product.Description.Substring(0, Math.Min(product.Description?.Length ?? 0, 200))</p>
+                <p style="text-align: justify; font-family: Montserrat," Helvetica Neue",Arial,sans-serif;">@product.Description.Substring(0, Math.Min(product.Description?.Length ?? 0, 200))</p>
             </div>
         </a>
     }
