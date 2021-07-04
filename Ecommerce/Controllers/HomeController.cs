@@ -21,9 +21,13 @@ namespace Ecommerce.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string searchString = null)
         {
             List<Product> products = _context.Products.ToList();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                products = products.Where(p => p.Title.Contains(searchString, StringComparison.InvariantCultureIgnoreCase)).ToList();
+            }
             return View(products);
         }
 
