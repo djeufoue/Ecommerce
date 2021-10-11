@@ -20,9 +20,7 @@ namespace Ecommerce.Controllers
         private readonly EcommerceDbContext _context;
 
         public AccountController(
-            SignInManager<ApplicationUser> signInManager,
-            UserManager<ApplicationUser> userManager,
-            ILogger<AccountController> logger,
+            SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ILogger<AccountController> logger,
             EcommerceDbContext context)
         {
             _signInManager = signInManager;
@@ -30,36 +28,30 @@ namespace Ecommerce.Controllers
             _logger = logger;
             _context = context;
         }
-
         [HttpGet]
         public IActionResult Register()
         {
             var model = new RegisterViewModel();
             return View(model);
         }
-
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (!ModelState.IsValid)
                 return View(model);
-
             // 1. use the information inside 'register' to register the user
             string email = model.Email;
-
             var user = await _userManager.FindByEmailAsync(email);
             if (user != null)
             {
                 ModelState.AddModelError(nameof(model.Email), $"User account {email} already exists.");
                 return View(model);
             }
-
             user = new ApplicationUser
             {
                 UserName = email,
                 Email = email,
             };
-
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
@@ -67,9 +59,7 @@ namespace Ecommerce.Controllers
                 {
                     throw new ApplicationException("SendConfirmationEmail(user) is not implemented");
                 }
-
                 _logger.LogInformation($"User account {email} created successfully.");
-
                 // 4. Redirect user to the Login page
                 return RedirectToAction(nameof(Login));
             }

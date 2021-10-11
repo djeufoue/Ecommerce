@@ -29,7 +29,7 @@ namespace Ecommerce.Controllers
 
         private ProductViewModel GetViewModelFromModel(Product product)
         {
-            ProductViewModel productViewModel = new ProductViewModel
+            ProductViewModel productViewModel = new ProductViewModel()
             {
                 Id = product.Id,
                 UserId = product.UserId,
@@ -110,7 +110,7 @@ namespace Ecommerce.Controllers
                         FileStream fileStream = System.IO.File.OpenRead(filePathName);
                         string contentType = MimeTypes.GetMimeType(fileName);
 
-                        var contentDisposition = new System.Net.Mime.ContentDisposition
+                        var contentDisposition = new System.Net.Mime.ContentDisposition()
                         {
                             FileName = fileName,
                             Inline = true,
@@ -169,7 +169,7 @@ namespace Ecommerce.Controllers
                                             .First();
                 product.UserId = user.Id;
 
-                await SaveImageFile(productViewModel.ImageFile, product);
+                await SaveImageFile(productViewModel.ImageFile, product);      
 
                 _context.Add(product);
                 await _context.SaveChangesAsync();
@@ -177,6 +177,7 @@ namespace Ecommerce.Controllers
             }
             return View(productViewModel);
         }
+
 
         // GET: Product/Edit/5
         public IActionResult Edit(long? id)
@@ -192,9 +193,11 @@ namespace Ecommerce.Controllers
                 return NotFound();
             }
 
-            ApplicationUser user = _context.Users
-                                        .Where(u => u.UserName == User.Identity.Name)
-                                        .First();
+            var query = _context.Users.Where(u => u.UserName == User.Identity.Name);
+            query.Distinct();
+
+            ApplicationUser user = query.First();
+
             if (product.UserId != user.Id)
                 return Forbid("Not a chance in hell!");
 
